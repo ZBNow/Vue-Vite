@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.ThinkMapper">
+
+    <!--resultMap:将查询结果（表格）转化成对象
+        id:映射关系的唯一标识符
+        type:转化后的对象类型
+    -->
+    <!--
+        <id column="查询结果主键名" property=""></id>
+        <result column="查询结果列明" property="Java对象属性名"></result>
+        <collection 集合表示一对多的关系 property="Java对象属性名" ofType="转化后的对象类型">
+    -->
+    <resultMap id="selectOptions" type="com.example.demo.dao.Option">
+        <result column="LeValue" property="value"/>
+        <result column="LeLabel" property="label"/>
+        <collection property="children" ofType="com.example.demo.dao.Option">
+            <result column="MoValue" property="value"/>
+            <result column="MoLabel" property="label"/>
+            <collection property="children" ofType="com.example.demo.dao.Option">
+                <result column="ChValue" property="value"/>
+                <result column="ChLabel" property="label"/>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <select id="selectOptions" resultMap="selectOptions">
+        select
+            L.`value` as `LeValue`, L.`label` as `LeLabel`,   -- 等级
+            M.`value` as `MoValue`,M.`label` as `MoLabel`,    -- 模块
+            C.`value` as `ChValue`, C.`label` as `ChLabel`    -- 章节
+        from (LMC as L left join LMC as M on L.`value`=M.`pre`) left join LMC as C on M.`value`=C.`pre`
+        where L.`pre` is null
+    </select>
+</mapper>

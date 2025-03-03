@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--Mapper头文件-->
+<mapper namespace="com.example.demo.mapper.LoginMapper">
+    <!--对应selectByUserName函数-->
+    <!--parameterType:输入数据类型，resultType:输出数据类型-->
+    <!--如用resultMap则替换掉resultType-->
+    <select id="selectByUserName" parameterType="java.lang.String"
+            resultType="com.example.demo.dao.User">
+        select * from users where binary `username`=#{username};
+        <!--SQL语句:``中为表的属性，#{}中为输入数据-->
+        <!--添加BINARY区分大小写-->
+    </select>
+</mapper>

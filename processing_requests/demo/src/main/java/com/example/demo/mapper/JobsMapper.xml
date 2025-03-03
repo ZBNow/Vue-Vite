@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.JobsMapper">
+    <select id="fresh1" parameterType="java.lang.Integer"
+            resultType="com.example.demo.dao.Jobs">
+        select * from jobs where id &lt; ${value}
+    </select>
+    <select id="fresh2" parameterType="java.lang.String"
+            resultType="com.example.demo.dao.Jobs">
+        select * from jobs where state in (${state})
+    </select>
+</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.FreshMapper">
+    <select id="fresh1" parameterType="java.lang.Integer"
+            resultType="com.example.demo.dao.Question">
+        select * from questions where id &lt; ${value}
+        <!--&lt;小于号-->
+    </select>
+    <select id="fresh2" parameterType="com.example.demo.dao.Lmc"
+            resultType="com.example.demo.dao.Question">
+        select * from questions join lmc on lmc.value=questions.LMC
+                 where lmc.value like '${lmc}%'
+        <!--{lmc}为前端传来的lmc串，lmc为数据库中的lmc表-->
+    </select>
+</mapper>
